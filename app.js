@@ -44,7 +44,6 @@ rl.question ('masukkan nama anda : ', (nama) => {                           // m
            const contact = {nama, nim, noHP}                                // membuat objek untuk menampung pertanyaan yang telah dibuat dengan membuat variable
            const file = fs.readFileSync ('data/contacts.json', 'utf-8')     // membuat variabel file untuk menginisialisasi dan melihat data-contact yang telah dibuat sebelumnya 
            const contacts = JSON.parse (file)                               // membuat variable contacts kemudian di ubah menjadi tipe file json dengan variabel file
-           console.log(contacts)                                            // menampilkan variabel contacts
            contacts.push(contact)                                           // menyatukan variabel contacts dengan variabel contact
            fs.writeFileSync('data/contacts.json', JSON.stringify(contacts)) // menulis apa yang ada di variabel contacts ke dalam file contact.json dan mengubahnya terlebih dahulu dari json menjadi string
            console.log('terimakasih sudah mengisi')                         // perintah untuk menampilkan pesan 
