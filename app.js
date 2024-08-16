@@ -1,4 +1,8 @@
+const { rejects } = require('assert');
 const fs = require('fs');
+
+const contacts = require('./contacts.js')
+
 
 
 //try {
@@ -32,22 +36,31 @@ const fs = require('fs');
     
 //})
 
-const readline= require('readline');                                        //membuat variabel terlebih dahulu sebelum menggunakan module 
-const rl = readline.createInterface({                                       // membuat interface untuk form pertanyaan di terminal
-    input: process.stdin,
-    output: process.stdout
-});
 
-rl.question ('masukkan nama anda : ', (nama) => {                           // membuat form question di terminal
-    rl.question ('masukkan nim anda : ', (nim) => {                         // membuat pertanyaan di terminal
-        rl.question ('masukkan no Hp anda : ', (noHP) => {
-           const contact = {nama, nim, noHP}                                // membuat objek untuk menampung pertanyaan yang telah dibuat dengan membuat variable
-           const file = fs.readFileSync ('data/contacts.json', 'utf-8')     // membuat variabel file untuk menginisialisasi dan melihat data-contact yang telah dibuat sebelumnya 
-           const contacts = JSON.parse (file)                               // membuat variable contacts kemudian di ubah menjadi tipe file json dengan variabel file
-           contacts.push(contact)                                           // menyatukan variabel contacts dengan variabel contact
-           fs.writeFileSync('data/contacts.json', JSON.stringify(contacts)) // menulis apa yang ada di variabel contacts ke dalam file contact.json dan mengubahnya terlebih dahulu dari json menjadi string
-           console.log('terimakasih sudah mengisi')                         // perintah untuk menampilkan pesan 
-            rl.close();                                                     // perintah untuk menutup form pertanyaan
-        })
-    })
-})
+//const pertanyaan2 = () => {
+//    return new Promise((resolve, reject) => {
+//        rl.question('masukkan No Hp Anda : ', (noHP) => {
+//            resolve(noHP)
+//        })
+//    })
+//}
+//const pertanyaan3 = () => {
+//    return new Promise((resolve, reject) => {
+//        rl.question('masukkan email anda : ', (email) => {
+//            resolve(email)
+//        })
+//    })
+//}
+
+const main = async() => {
+    const nama = await contacts.tulisPertanyaan('masukkan nama anda : ')
+    const noHP = await contacts.tulisPertanyaan('masukkan noHP anda : ')
+    const email = await contacts.tulisPertanyaan('masukkan email anda : ')
+
+    contacts.simpanKontak(nama,email,noHP)
+}
+
+main()
+
+
+
