@@ -1,4 +1,3 @@
-const { rejects } = require('assert');
 const fs = require('fs');
 
 const contacts = require('./contacts.js')
@@ -24,7 +23,7 @@ yargs.command({
             type : 'string'
         },
         noHP : {
-            describe : 'Nomor Handphonbe',
+            describe : 'Nomor Handphone',
             demmandOption : true,
             type : 'string'
         }
@@ -35,6 +34,47 @@ yargs.command({
        contacts.simpanKontak(argv.nama, argv.email, argv.noHP)
     }
 
+}).demandCommand()
+
+//menampilkan nama dan nomor handphone contact
+
+yargs.command({
+    command: 'list',
+    describe: 'menampilkan semua nama dan no hp contact',
+    handler() {
+        contacts.listContact()
+    }
+})
+
+
+yargs.command({
+    command: 'detail',
+    describe: 'menampilkan detail sebuah contact',
+    builder: {
+        nama : {
+            describe: 'Nama Lengkap',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler(argv){
+        contacts.detailContact(argv.nama)
+    }
+})
+
+yargs.command({
+    command: 'delete',
+    describe: 'menghapus sebuah kontak berdasarkan nama',
+    builder: {
+        nama: {
+            describe: 'Nama Lengkap',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        contacts.deleteContact(argv.nama)
+    }
 })
 
 
